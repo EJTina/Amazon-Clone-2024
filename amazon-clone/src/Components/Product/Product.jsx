@@ -6,27 +6,35 @@ import classes from './Product.module.css'
 function Product() {
 
     const [products, setProducts] = useState()
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(()=> {
 axios.get('https://fakestoreapi.com/products')
 .then((res)=>{
 setProducts(res.data)
+setIsLoading(false)
 }).catch((err)=>{
     console.log(err)
+    setIsLoading(false)
 })
     },[])
 
 
 return (
-    <section className={classes.products__container}>
+    <>
+    {
+    isLoading?(<Loader/>) : ( <section className={classes.products__container}>
         {
-   products?.map((singleProduct)=>{
-            return  <ProductCard product={singleProduct} key={singleProduct.id}/>
+            products?.map((singleProduct)=>{
+            return  <ProductCard renderAdd={true} product={singleProduct} key={singleProduct.id}/>
                 })
+        }
+    </section>)
     }
+    </>
 
-    </section>
-)
+    )
 }
 
 export default Product
+
