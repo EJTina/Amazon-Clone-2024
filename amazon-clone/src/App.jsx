@@ -1,24 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState} from "react";
+import Routing from './Router.jsx'
 import './App.css'
-import Header from './Components/Header/Header'
-import CarouselEffect from './Components/Carousel/CarouselEffect'
-import Category from './Components/Category/Category'
-import Product from './Components/Product/product'
-
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0)
 
   return (
-    <>
- <Header/>
- <CarouselEffect/>
- <Category/>
- <Product/>
-
-    </>
-  )
+    <Routing/>
+  );
 }
 
-export default App
+export default App;
