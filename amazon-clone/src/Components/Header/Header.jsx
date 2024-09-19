@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { GrLocation } from "react-icons/gr";
 import { BiCartAdd } from "react-icons/bi";
 import { IoSearch } from "react-icons/io5";
 import LowerHeader from "./LowerHeader";
+import { DataContext } from "../DataProvider/DataProvider";
+// import { auth } from "../../Utility/firebase";
 
 const Header = () => {
+  const [{ basket }, dispatch] = useContext(DataContext);
+
 return (
     <>
     <section className={classes.upper}>
@@ -73,7 +77,7 @@ return (
               {/* cart */}
             <Link to="/cart" className={classes.cart}>
                 <BiCartAdd size={38} />
-                <span>0</span>
+                <span>{basket.length}</span>
             </Link>
             </div>
         </div>

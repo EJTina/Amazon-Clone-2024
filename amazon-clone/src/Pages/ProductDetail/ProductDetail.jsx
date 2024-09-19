@@ -21,7 +21,7 @@ function ProductDetail() {
     }).catch((err)=>{
       console.log(err)
     
-     
+    
     })
   }, [])
   return (

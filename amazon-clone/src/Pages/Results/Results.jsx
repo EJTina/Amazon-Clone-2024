@@ -5,8 +5,11 @@ import {useParams} from 'react-router-dom'
 import axios  from 'axios'
 import { productUrl } from '../../Api/endPoints'
 import ProductCard from '../../Components/Product/ProductCard'
+
+
 function Results() {
   const [results, setResults] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const {categoryName} =useParams()
   useEffect(() => {
     axios.get(`${productUrl}/products/category/${categoryName}`)
@@ -41,5 +44,4 @@ function Results() {
     </LayOut>
   )
 }
-
 export default Results
