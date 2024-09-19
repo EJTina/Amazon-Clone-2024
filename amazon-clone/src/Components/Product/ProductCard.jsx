@@ -37,8 +37,7 @@ const addToCart = ()=>{
         <div>
           <CurrencyFormat amount={price} />
         </div>
-
-        <button className={classes.button} onClick={addToCart} >
+render Add && <button className={classes.button} onClick={addToCart} >
         add to cart
         </button>
       </div>
