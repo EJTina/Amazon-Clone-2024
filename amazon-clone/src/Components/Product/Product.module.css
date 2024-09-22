@@ -33,6 +33,7 @@
   }
   .button:hover {
     background-color: var(--primary-shade);
+    
   }
   .rating {
     display: flex;
@@ -46,11 +47,11 @@
   
   .products__container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    max-width: 1450px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    max-width: 1500px;
     margin: 100px;
     gap: 50px;
-    /* justify-items: center; */
+    justify-items: center;
   }
   
   .products__container section {

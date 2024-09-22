@@ -3,7 +3,7 @@ export const categoryInfos = [
     title: "Electronics",
     name: "electronics",
     imgLink:
-      "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2020/May/Dashboard/Fuji_Dash_TV_2X._SY304_CB432517900_.jpg",
+      "https://m.media-amazon.com/images/I/61ZCdzmymsL._AC_SX679_.jpg",
   },
   {
     title: "Discover fashion trends",
@@ -21,6 +21,6 @@ export const categoryInfos = [
     title: "Jewelery",
     name: "jewelery",
     imgLink:
-      "https://m.media-amazon.com/images/I/71r7eWuCsaL._AC_UL480_FMwebp_QL65_.jpg",
+      "https://i5.walmartimages.com/seo/Best-Sale-MIARHB-Women-18K-Gold-Ring-Fashion-Colorful-Inlaid-Ring-Full-Diamond-Ring-Jewelry-Accessories-Rose-Gold-6_14256672-0b29-4ba2-bcfd-60f48076d946.8fa0a7c5ac4f436e75f572b9598a9062.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
   },
 ];

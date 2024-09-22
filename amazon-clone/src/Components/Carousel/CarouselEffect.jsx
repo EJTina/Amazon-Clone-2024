@@ -2,12 +2,13 @@ import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import { image } from './Images/data'; // Make sure the import path is correct
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import classes from "./Carousel.module.css";
+import classes from './Carousel.module.css'
 
 function CarouselEffect() {
   return (
     <div>
     <Carousel
+    //came from documentation
       autoPlay={true}
       infiniteLoop={true}
       showIndicators={false}

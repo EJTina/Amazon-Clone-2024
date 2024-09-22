@@ -12,9 +12,11 @@ function Results() {
   const [isLoading, setIsLoading] = useState(false)
   const {categoryName} =useParams()
   useEffect(() => {
+  
     axios.get(`${productUrl}/products/category/${categoryName}`)
     .then((res)=>{
-       setResults(res.data)
+      setResults(res.data)
+      setIsLoading(false)
     }).catch((err)=>{
       console.log(err)
     })

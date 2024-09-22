@@ -1,5 +1,6 @@
 .hero__img{
     position: relative;
+    /* height: 30vh; */
 }
 
 .hero__img::before {

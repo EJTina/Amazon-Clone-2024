@@ -4,7 +4,7 @@ import App from './App.jsx'
 import { DataProvider } from './Components/DataProvider/DataProvider.jsx'
 import { reducer,initialState } from './Utility/reducer.js'
 
-// import './index.css'
+import './index.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

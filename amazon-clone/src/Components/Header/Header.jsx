@@ -64,9 +64,9 @@ return (
             </Link>
 
               {/* The three components: sign in, Account list & cart */}
-            <Link to="">
+            <Link to={"/auth"}>
                 <div>
-                <p>Hello, Sign In</p>
+                <p> Sign In</p>
                 <span>Account & Lists</span>
                 </div>
             </Link>
