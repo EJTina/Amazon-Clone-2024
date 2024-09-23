@@ -6,14 +6,16 @@ import { BiCartAdd } from "react-icons/bi";
 import { IoSearch } from "react-icons/io5";
 import LowerHeader from "./LowerHeader";
 import { DataContext } from "../DataProvider/DataProvider";
-// import { auth } from "../../Utility/firebase";
+import { auth } from "../../Utility/firebase";
+
 
 const Header = () => {
-  const [{ basket }, dispatch] = useContext(DataContext);
-  const totalItem = basket?.reduce((amount, item) => {
-    return item.amount + amount;
-  }, 0);
-
+  const [{ user,basket }, dispatch] = useContext(DataContext);
+  // const totalItem = basket?.reduce((amount, item) => {
+  //   return item.amount + amount;
+  // }, 0);
+  // used amount + amount, 0 || 0, because if there is no item in the basket, it will return undefined
+  const totalItem = basket?.reduce((amount, item) => item.amount + amount, 0) || 0;
 return (
     <section className={classes.fixed}>
     <section className={classes.upper}>
@@ -47,7 +49,7 @@ return (
                 <option value="">All</option>
             </select>
             <input type="text" placeholder="Search..." />
-            <IoSearch size={26} />
+            <IoSearch size={38} />
             </div>
             {/* right side links */}
             <div className={classes.order_container}>
@@ -64,10 +66,23 @@ return (
             </Link>
 
               {/* The three components: sign in, Account list & cart */}
-            <Link to={"/auth"}>
+            <Link to={!user && "/auth"}>
+                
                 <div>
-                <p> Sign In</p>
-                <span>Account & Lists</span>
+                {user ? (
+                  <>
+                    <p>Hello {user?.email?.split("@")[0]}</p>
+                    <span onClick={() => (user ? auth.signOut() : null)}>
+            
+                      Sign Out
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
                 </div>
             </Link>
 

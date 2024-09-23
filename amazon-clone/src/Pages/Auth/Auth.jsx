@@ -1,58 +1,106 @@
 import React, { useState, useContext } from "react";// Add useState here
 import classes from './SignUp.module.css';
 import LayOut from '../../Components/LayOut/LayOut';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { auth } from '../../Utility/firebase';
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth";
-// import { } from "firebase/auth";
+import {ClipLoader } from "react-spinners";
 import { DataContext } from "../../Components/DataProvider/DataProvider";
 import { Type } from "../../Utility/action.type";
 function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState({
+    signIn: false,
+    signUP: false,
+  });
   const [{ user }, dispatch] = useContext(DataContext);
-console.log();
+  const navigate = useNavigate();
+
+const authHandler = async (e) => {
+  e.preventDefault();
+  console.log(e.target.name);
+  if (e.target.name == "signin") {
+    // firebase auth
+    setLoading({ ...loading, signIn: true });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userInfo) => {
+        dispatch({
+          type: Type.SET_USER,
+          user: userInfo.user,
+        });
+        setLoading({ ...loading, signIn: false });
+        navigate( "/");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading({ ...loading, signIn: false });
+      });
+  } else {
+    setLoading({ ...loading, signUP: true });
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userInfo) => {
+        dispatch({
+          type: Type.SET_USER,
+          user: userInfo.user,
+        });
+        setLoading({ ...loading, signUP: false });
+        navigate("/");
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading({ ...loading, signUP: false });
+      });
+  }
+};
 
 
-
-  const authHandler = async (e) => {
-    e.preventDefault();
-    // console.log(e.target.name);
-    if (e.target.name == "signin") {
-      // firebase auth
+  // const authHandler = async (e) => {
+  //   e.preventDefault();
+  //   console.log(e.target.name);
+  //   if (e.target.name == "signin") {
+  //     setLoading({ ...loading, signIn: true });
       
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userInfo) => {
-          console.log(userInfo);
-          dispatch({
-            type: Type.SET_USER,
-            user: userInfo.user,
-            
-          });
-        })
-        .catch((err) => {
-          // console.log(err.message);
-          setError(err.message);
-         
-        });
-    } else {
+  //     // firebase authentication
+  //     signInWithEmailAndPassword(auth, email, password)
+  //       .then((userInfo) => {
+  //         console.log(userInfo);
+  //         dispatch({
+  //           type: Type.SET_USER,
+  //           user: userInfo.user,
+  //         });
 
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((userInfo) => {
-          // console.log(userInfo);
-          dispatch({
-            type: Type.SET_USER,
-            user: userInfo.user,
-          });
-         
-        })
-        .catch((err) => {
-          setError(err.message);
-          // setLoading({ ...loading, signUP: false });
-        });
-    }
-  };
+  //         setLoading({ ...loading, signIn: false });
+  //       })
+  //       .catch((err) => {
+  //         // console.log(err.message);
+  //         setError(err.message);
+
+  //         setLoading({ ...loading, signIn: false });
+        
+  //       });
+  //   } else {
+
+  //     setLoading({ ...loading, signUP: true });
+
+  //     createUserWithEmailAndPassword(auth, email, password)
+  //       .then((userInfo) => {
+  //         console.log(userInfo);
+  //         dispatch({
+  //           type: Type.SET_USER,
+  //           user: userInfo.user,
+  //         });
+
+  //         setLoading({ ...loading, signUP: false });
+  //       })
+  //       .catch((err) => {
+  //         setError(err.message);
+
+  //         setLoading({ ...loading, signUP: false });
+  //       });
+  //   }
+  // };
 
 
 
@@ -88,10 +136,18 @@ console.log();
               id="password"/>
 </div>
 {/* Sign In button */}
-<button type="submit"
+<button 
+type="submit"
             onClick={authHandler}
             name="signin"
-            className={classes.login__signInButton}>Sign In</button>
+            className={classes.login__signInButton}>
+               {loading.signIn ? (
+              <ClipLoader color="#000" size={15}></ClipLoader>
+            ) :  (
+              " Sign In"
+            )}
+              </button>
+              </form>
 
 {/* agreement */}
 <p>By continuing, you agree to Amazon's Fake Clone Terms and Conditions of Use and Privacy Notice.Please see our Privacy , Cookies Notice and Interest-Based Ads Notice.</p>
@@ -100,12 +156,19 @@ console.log();
 <button  type="submit"
           name="signup"
           onClick={authHandler}
-          className={classes.login__registerButton}>Create your Amazon Account</button>
+          className={classes.login__registerButton}>
+             {loading.signUP ? (
+              <ClipLoader color="#000" size={15}></ClipLoader>
+            ) :  (
+              "    Create your Amazon Account"
+            )}
+            
+            Create your Amazon Account</button>
 
 {error && (
           <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>
         )}   
-  </form>
+
 </div>
 
 
