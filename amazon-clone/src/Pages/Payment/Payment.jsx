@@ -2,20 +2,26 @@ import React,{useContext,useState} from 'react'
 import classes from './Payment.module.css'
 import CurrencyFormat from "../../Components/CurrencyFormat/CurrencyFormat";
 import LayOut from '../../Components/LayOut/LayOut'
+import { ClipLoader } from "react-spinners";
 import { DataContext } from '../../Components/DataProvider/DataProvider'  
 import ProductCard from "../../Components/Product/ProductCard";
 import {useStripe, 
   useElements,
   CardElement}
-   from '@stripe/react-stripe-js';
-   
+  from '@stripe/react-stripe-js';
+import { axiosInstance } from '../../API/axios'
+import {db} from '../../Utility/firebase'
+import { useNavigate } from "react-router-dom";
+
+  
 
 function Payment() {
   const [{ user, basket }] = useContext(DataContext);
+  console.log(user, basket);
 
   // {total items}
-  const totalItem = basket?.reduce((amount, item) =>
-    item.amount + amount, 0);
+  const totalItem = basket?.reduce((amount, item) =>{
+    return item.amount + amount}, 0);
 
   // {total price}
   const total = basket.reduce((amount,item)=>{
@@ -23,15 +29,72 @@ function Payment() {
   },0)
 
   const [cardError, setCardError] = useState(null);
+  const [processing, setProcessing] = useState(false);
+
 
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate();
 
-  // Move handleChange here
+  
   const handleChange = (e) => {
-    console.log(e);   
-    e?.error?.message? setCardError(e?.error?.message) : setCardError("");
+    // console.log(e);
+    e?.error?.message ? setCardError(e?.error?.message) : setCardError("");
   };
+
+  const handlePayment = async (e) => {
+    e.preventDefault();
+
+    try {
+      setProcessing(true);
+
+
+         // Step1.Here we try contact the  backend ||(or) our functions --->  to the client secret
+      const response = await axiosInstance({
+        method: "POST",
+        url: `/payments/create?total=${total*100}`,
+      });
+
+      // console.log(response.data);
+      const clientSecret = response.data?.clientSecret;
+
+       // Step2. We will get a client side or (react side )confirmation(looking for payment method)using stripe
+      const {paymentIntent} = await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: elements.getElement(CardElement),
+        },
+      });
+
+      // console.log(paymentIntent);
+
+            // Step3. after the confirmation --> We save what we have (items in the basket) on fireStore database and then  the basket will clear 
+// means after we pay the basket will be empty and the items will be saved on fireStore database 
+
+await db
+.collection("users")
+.doc(user.uid)
+.collection("orders")
+.doc(paymentIntent.id)
+.set({
+  basket: basket,
+  amount: paymentIntent.amount,
+  created: paymentIntent.created,
+});
+
+
+
+
+      setProcessing(false);
+      navigate("/orders", { state: { msg: "you have placed new Order" } });
+    } 
+    catch (error) {
+      console.log(error);
+      setProcessing(false);
+    }
+  };
+
+
+
 
   return (
     <LayOut>
@@ -69,9 +132,9 @@ function Payment() {
           <h3>Payment methods</h3>
           <div className={classes.payment__card__container}>
             <div className={classes.payment__details}>
-              <form action=''>
+              <form onSubmit={handlePayment}>
 
-                
+                {/* error */}
                 {cardError && <small style={{ color: "red" }}>{cardError}</small>}
                 {/* Ensure handleChange is defined above */}
 
@@ -86,7 +149,16 @@ function Payment() {
                     </span>
                   </div>
 
-                  <button>Pay Now</button>
+                  <button type ="submit">
+                  {processing ? (
+                      <div className={classes.loading}>
+                        <ClipLoader color="gray" size={12} />
+                        <p>Please Wait ...</p>
+                      </div>
+                    ) : (
+                      " Pay Now"
+                    )}
+                    </button>
                 </div>
               </form>
             </div>

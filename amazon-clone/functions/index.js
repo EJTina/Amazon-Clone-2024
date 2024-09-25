@@ -9,7 +9,7 @@ const stripe = require("stripe")( process.env.STRIPE_KEY);
 
 
 const app = express();
-app.use(cors({origin: "true"}));
+app.use(cors({origin: true}));
 
 app.use(express.json());
 
@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
     });
 
 app.post("/payments/create", async (req, res) => {
-    const total =  req.query.total; // req.query.total;
+    const total = parseInt( req.query.total); // req.query.total;
     if (total > 0) {
         // console.log("Payment Request Recieved for this amount >>> ", total);
         const paymentIntent = await stripe.paymentIntents.create({

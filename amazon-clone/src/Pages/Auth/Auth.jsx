@@ -56,55 +56,7 @@ const authHandler = async (e) => {
 };
 
 
-  // const authHandler = async (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.name);
-  //   if (e.target.name == "signin") {
-  //     setLoading({ ...loading, signIn: true });
-      
-  //     // firebase authentication
-  //     signInWithEmailAndPassword(auth, email, password)
-  //       .then((userInfo) => {
-  //         console.log(userInfo);
-  //         dispatch({
-  //           type: Type.SET_USER,
-  //           user: userInfo.user,
-  //         });
 
-  //         setLoading({ ...loading, signIn: false });
-  //       })
-  //       .catch((err) => {
-  //         // console.log(err.message);
-  //         setError(err.message);
-
-  //         setLoading({ ...loading, signIn: false });
-        
-  //       });
-  //   } else {
-
-  //     setLoading({ ...loading, signUP: true });
-
-  //     createUserWithEmailAndPassword(auth, email, password)
-  //       .then((userInfo) => {
-  //         console.log(userInfo);
-  //         dispatch({
-  //           type: Type.SET_USER,
-  //           user: userInfo.user,
-  //         });
-
-  //         setLoading({ ...loading, signUP: false });
-  //       })
-  //       .catch((err) => {
-  //         setError(err.message);
-
-  //         setLoading({ ...loading, signUP: false });
-  //       });
-  //   }
-  // };
-
-
-
-    // console.log(email, password);
   return (
 
     <section className={classes.login}>
@@ -170,8 +122,6 @@ type="submit"
         )}   
 
 </div>
-
-
 
 
     </section>
