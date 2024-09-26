@@ -57,8 +57,6 @@ const authHandler = async (e) => {
   }
 };
 
-
-
   return (
 
     <section className={classes.login}>
@@ -111,7 +109,7 @@ type="submit"
             onClick={authHandler}
             name="signin"
             className={classes.login__signInButton}>
-               {loading.signIn ? (
+              {loading.signIn ? (
               <ClipLoader color="#000" size={15}></ClipLoader>
             ) :  (
               " Sign In"
@@ -127,7 +125,7 @@ type="submit"
           name="signup"
           onClick={authHandler}
           className={classes.login__registerButton}>
-             {loading.signUP ? (
+            {loading.signUP ? (
               <ClipLoader color="#000" size={15}></ClipLoader>
             ) :  (
               "    Create your Amazon Account"
@@ -140,7 +138,6 @@ type="submit"
         )}   
 
 </div>
-
 
     </section>
   

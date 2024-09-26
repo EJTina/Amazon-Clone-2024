@@ -12,7 +12,7 @@ import {useStripe,
 import { axiosInstance } from '../../API/axios'
 import {db} from '../../Utility/firebase'
 import { useNavigate } from "react-router-dom";
-
+import {Type} from '../../Utility/action.type'
   
 
 function Payment() {
@@ -93,7 +93,6 @@ await db
       setProcessing(false);
     }
   };
-
 
 
 
