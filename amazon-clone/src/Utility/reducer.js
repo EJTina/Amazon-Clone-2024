@@ -50,12 +50,19 @@ switch (action.type) {
     return {
         ...state,
         basket: newBasket,
+        
     };
     case Type.EMPTY_BASKET:
     return {
         ...state,
         basket: [],
     };
+
+    // case Type.EMPTY_BASKET:
+    //     return {
+    //     ...state,
+    //     basket: [],
+    //     };
     case Type.SET_USER:
     return {
         ...state,

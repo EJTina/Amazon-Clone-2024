@@ -16,8 +16,8 @@ import { useNavigate } from "react-router-dom";
   
 
 function Payment() {
-  const [{ user, basket }] = useContext(DataContext);
-  console.log(user, basket);
+  const [{ user, basket }, dispatch] = useContext(DataContext);
+  console.log(user);
 
   // {total items}
   const totalItem = basket?.reduce((amount, item) =>{
@@ -81,7 +81,8 @@ await db
   created: paymentIntent.created,
 });
 
-
+   // To make sure that the basket will be empty after the payment is done
+  dispatch({ type: Type.EMPTY_BASKET });
 
 
       setProcessing(false);
