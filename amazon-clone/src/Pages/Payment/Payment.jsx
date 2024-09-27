@@ -94,8 +94,6 @@ await db
     }
   };
 
-
-
   return (
     <LayOut>
       {/* Header */}
