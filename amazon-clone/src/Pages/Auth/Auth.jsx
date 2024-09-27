@@ -61,7 +61,7 @@ const authHandler = async (e) => {
 
     <section className={classes.login}>
 {/* logo */}
-<Link>
+<Link to ={"/"}>
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/905px-Amazon_logo.svg.png?20220213013322"
 />
 
