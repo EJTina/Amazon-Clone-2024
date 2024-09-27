@@ -32,9 +32,6 @@ useEffect(() => {
 }, []);
 
 
-
-
-
   return (
     <LayOut>
       <section className={classes.container}>
@@ -44,8 +41,6 @@ useEffect(() => {
             <div style={{ padding: "20px" }}>you don't have orders yet.</div>
           )}
 
-
-          
           {/* ordered items */}
           <div>
             {orders?.map((eachOrder, i) => {
