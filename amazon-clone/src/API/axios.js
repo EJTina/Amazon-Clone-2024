@@ -14,7 +14,7 @@ const axiosInstance = axios.create({
 
 // baseURL: "https://amazon-backend-i1p3.onrender.com/"   
 
-baseURL:"http://localhost:5000"  
+baseURL:"https://amazon-backend-i1p3.onrender.com/"  
 });
 
     export { axiosInstance };
